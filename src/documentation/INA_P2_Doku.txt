@@ -1,0 +1,41 @@
+--INA_P2_Borgert_Doku--
+
+Teil 1:
+Frage: Wie starten und beenden Sie den Server?
+A: startup.bat / shutdown.bat im bin Verzeichnis
+
+Frage: Wie ist der Server per Browser erreichbar?
+A: Standardmäßig port 8080, http://localhost:8080/anwendungsname
+
+Frage: Wie können Sie auf den Server-Manager zugreifen?
+A: http://localhost:8080/manager/html -> Mit bei der Tomcat installation gesetzten Admin-Daten anmelden
+
+Frage: In welchem Verzeichnis liegen Web-Applikationen?
+A: webapps Verzeichnis
+
+
+
+Teil 3:
+- Der JSP UrlReader kann einen einzigen vordefinierten parameter "url" auslesen und ausgeben
+- Der Servlet UrlReader kann dynamisch beliebig viele parameter auslesen und ausgeben
+
+Aufgabe: Exportieren Sie das Projekt als WAR-Datei ...
+1. In IntelliJ File > Project Structure > Artifacts > neues Web Application Archive erstellen.
+2. Dann Build > Build Artifacts > Build WAR.
+
+Aufgabe: ... in das Web-Applikationsverzeichnis des Tomcat-Servers und starten Sie den Server manuell.
+1. tomecat location > webapps > WAR einfügen.
+2. Navigieren zum -bin Verzeichniss und startup.bat (auf windows) in der Commando Zeile ausführen.
+3. http://localhost:8080/yourAppName/yourJspName.jsp -> In meinem Fall: http://localhost:8080/INA_P2_Borgert-1.0-SNAPSHOT/index.jsp
+
+Aufgabe: Suchen Sie den Quellcode dieses Servlets und analysieren Sie ihn!
+1. Der Quellcode liegt im work Verzeichnis von Tomcat.
+
+Aufgabe: Was beobachten Sie im Web-Applikationsverzeichnis?
+1. Wenn eine WAR in webapps gelegt wird entpackt Tomcat die WAR-Datei und erstellt ein neues Verzeichnis
+   das den Namen der WAR hat.
+
+Aufgabe: Was passiert, wenn sie eine neue WAR-Datei in das entsprechende Verzeichnis des (manuell gestarteten) laufenden Servers legen?
+1.1 Wenn die WAR-Datei eine neue Anwendung ist: Passiert Punkt 1 und die neue Anwendung wird geladen und ist bereit für anfragen.
+1.2 Wenn die WAR-Datei eine bestehende Anwendung ist: Tomcat löscht das bestehende Verzeichnis,
+    die WAR wird entpackt und ein neues Verzeichnis erstellt. Die Anwendung wird neu geladen (abhängig von der Config).

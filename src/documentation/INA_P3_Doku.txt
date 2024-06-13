@@ -1,0 +1,11 @@
+--INA_P3_Borgert_Doku--
+
+Teil 1.2:
+Aufgabe:
+JSPs legt man häufig in Pfaden ab, die zum o.g. Package passen, also com/ina/p3.
+Nehmen Sie entsprechende Änderungen vor.
+
+Antwort: Die Pfade mussten angepasst werden. Damit die JSP's mit den Java Klassen
+(den Servlets) kommunizieren können muss von den JSP's hoch zum webapp Verzeichnis
+ein Pfad gegeben sein. Entweder manuell oder dynamisch als:
+<form action="${pageContext.request.contextPath}/my-servlet-value">
