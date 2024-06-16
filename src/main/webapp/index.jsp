@@ -26,5 +26,8 @@
     <br/>
     <!-- Link to the advanced Input JSP with URL parameters for input and error message -->
     <a href="org/ina/p3/urlInputAdvanced.jsp?errorMessage=Format+is+(www.name.suffix)">P3 - Part 2.0: Input Jsp Advanced</a>
+    <br/>
+    <!-- Link to the advanced Input JSP with URL parameters for input and error message -->
+    <a href="org/ina/p4/urlInputAdvanced.jsp?errorMessage=Format+is+(www.name.suffix)">P4 - Part 1.0: Input Jsp Advanced</a>
   </body>
 </html>
