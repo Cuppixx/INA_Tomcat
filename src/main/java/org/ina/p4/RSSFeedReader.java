@@ -1,6 +1,9 @@
 package org.ina.p4;
 
 import java.io.*;
+
+import com.rometools.rome.feed.synd.SyndEntry;
+import com.rometools.rome.feed.synd.SyndFeed;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import org.ina.p4.beans.FeedBean;
@@ -36,7 +39,12 @@ public class RSSFeedReader extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) {
         response.setContentType("text/html");
         List<String> feedUrls = ((FeedBean)request.getSession().getAttribute("data")).getFeedUrls();
-
+        ControllerHelper ch;
+        if (request.getSession().getAttribute("helper") == null)
+            ch = new ControllerHelper(request, response);
+        else
+            ch = (ControllerHelper)request.getSession().getAttribute("helper");
+        ch.doGet(request, response);
         try (PrintWriter out = response.getWriter()) {
             out.println("<html><body>");
 
@@ -45,10 +53,18 @@ public class RSSFeedReader extends HttpServlet {
             } else {
                 out.println("<h1>Feed URLs:</h1>");
                 for (String feedUrl : feedUrls) {
-                    out.println(feedUrl + "<br>");
+                    out.println("<h2>Feeds from: <a href=\"" + feedUrl + "\">" + feedUrl + "</a></h2>");
+
+                    SyndFeed feed = ch.feedLoader(feedUrl);
+                    if (feed != null) {
+                        for (SyndEntry entry : feed.getEntries()) {
+                            //out.println(entry.getTitle() + "<br>");
+                            out.println("<a href=\"" + entry.getLink() + "\">" + entry.getTitle() + "</a><br>");
+                        }
+                    }
+                    out.println("<br><br>");
                 }
             }
-
             out.println("</body></html>");
         }
         catch(Exception e) {

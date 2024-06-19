@@ -81,7 +81,7 @@ public class ControllerHelper extends HelperBase {
         return null;
     }
 
-    private SyndFeed feedLoader(String feedUrl) {
+    protected SyndFeed feedLoader(String feedUrl) {
         try {
             URI url = new URI(feedUrl);
             SyndFeedInput input = new SyndFeedInput();
