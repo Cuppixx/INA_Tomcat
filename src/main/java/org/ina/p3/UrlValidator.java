@@ -14,7 +14,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * The {@code UrlValidator} class extends {@link jakarta.servlet.http.HttpServlet} and provides
+ * The {@code UrlValidatorAdd} class extends {@link jakarta.servlet.http.HttpServlet} and provides
  * a mechanism to validate a URL provided by the user. It checks the format of the URL and its existence
  * by attempting to establish a connection to it.
  *

@@ -1,0 +1,11 @@
+Beschreibung p4:
+
+Die Eingabeseite leitet die URL an eine abgeleitete Klasse der UrlValidatorBase-Klasse weiter.
+Die Basisklasse kann die URL entgegennehmen und implementiert die eigentlichen Überprüfungen.
+Die abgeleiteten Klassen implementieren die doAction-Funktion, die aus doGet aufgerufen wird und bestimmt,
+wie der Input verarbeitet wird. Die eigentliche Implementierung befindet sich in der Helper-Klasse,
+wodurch später Mischungen aus verschiedenen Funktionen in den abgeleiteten Klassen implementiert werden können.
+Bei jeder Aktion wird das Data Bean in der Session neu erzeugt.
+
+Die RSSFeedReader-Klasse kann das Data Bean aus der Session auslesen und die relevanten Informationen aus den RSS-Feed-URLs ziehen.
+Das Servlet ist somit eine View, die jedoch eigenständig die gewünschten Daten auslesen kann und diese Funktionalität implementiert.

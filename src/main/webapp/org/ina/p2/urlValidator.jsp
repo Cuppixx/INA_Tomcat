@@ -3,7 +3,7 @@
 <%@ page import="java.net.URI" %>
 
 <!-- This jsp is the first implementation of an urlValidator.
-Since this jsp isn't a simple page anymore it was refactored into a servlet: "UrlValidator.java".
+Since this jsp isn't a simple page anymore it was refactored into a servlet: "UrlValidatorAdd.java".
 This jsp is technically obsolete.
 -->
 

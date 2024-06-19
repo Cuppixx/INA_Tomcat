@@ -9,7 +9,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 
 /**
- * Servlet implementation class UrlValidator.
+ * Servlet implementation class UrlValidatorAdd.
  * This servlet validates a URL entered by the user and redirects to the URL if it is valid and exists.
  * If the URL is not valid or does not exist, it redirects the client back to the input page with an error message.
  */
