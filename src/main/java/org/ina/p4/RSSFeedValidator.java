@@ -70,6 +70,7 @@ public class RSSFeedValidator extends HttpServlet {
         String url3 = req.getParameter("url3");
 
         String[] urls = {url1, url2, url3};
+        String[] feeds = {};
 
         for (String url : urls) {
             String feedUrl = feedFinder(url);
@@ -77,9 +78,10 @@ public class RSSFeedValidator extends HttpServlet {
                 SyndFeed feed = feedLoader(feedUrl);
                 if (feed != null) {
                     req.setAttribute("feed", feed);
-                    req.getRequestDispatcher("/RSSFeedReader").forward(req, resp);
+
                 }
             }
         }
+        req.getRequestDispatcher("/rss-feed-reader").forward(req, resp);
     }
 }

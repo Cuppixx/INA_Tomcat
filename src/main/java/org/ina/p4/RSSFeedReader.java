@@ -3,7 +3,11 @@ package org.ina.p4;
 import java.io.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import org.ina.p4.beans.FeedBean;
+
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
 
 /**
  * Servlet implementation class UrlParamReader.
@@ -31,21 +35,20 @@ public class RSSFeedReader extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) {
         response.setContentType("text/html");
+        List<String> feedUrls = ((FeedBean)request.getSession().getAttribute("data")).getFeedUrls();
 
         try (PrintWriter out = response.getWriter()) {
             out.println("<html><body>");
 
-            Enumeration<String> parameterNames = request.getParameterNames();
-
-            if (!parameterNames.hasMoreElements()) {
-                out.println("<h1>Hello World!</h1>");
+            if (feedUrls.isEmpty()) {
+                out.println("<h1>Keine Feeds verfügbar.</h1>");
             } else {
-                while (parameterNames.hasMoreElements()) {
-                    String paramName  = parameterNames.nextElement();
-                    String paramValue = request.getParameter(paramName);
-                    out.println(paramName + ": " + paramValue + "<br>");
+                out.println("<h1>Feed URLs:</h1>");
+                for (String feedUrl : feedUrls) {
+                    out.println(feedUrl + "<br>");
                 }
             }
+
             out.println("</body></html>");
         }
         catch(Exception e) {

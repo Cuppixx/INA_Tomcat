@@ -15,24 +15,20 @@
     if(errorMessage != null && !errorMessage.isEmpty()) {out.println("<p style='color:red;'>" + errorMessage + "</p>");}
 %>
 
-<!-- Start of the form -->
-<form action="${pageContext.request.contextPath}/rss-feed-validator">
+<!-- Start of the forms -->
+<form action="${pageContext.request.contextPath}/url-validator-p4">
     <!-- Label for the text input field -->
     <label for="url">Website-Address:</label>
 
     <!-- Text input field for entering the website address. It is pre-filled with the previous input if one exists -->
     <input type="text" id="url" name="url" placeholder="www.enter_url_here.de" value="<%=previousInput != null ? previousInput : ""%>"><br>
 
-    <!-- Additional fields for name and two more URLs -->
-    <label for="url2">Additional Website-Address 1:</label>
-    <input type="text" id="url2" name="url2" placeholder="www.enter_url_here.de"><br>
-
-    <label for="url3">Additional Website-Address 2:</label>
-    <input type="text" id="url3" name="url3" placeholder="www.enter_url_here.de"><br>
-
     <!-- Submit button for the form -->
-    <input type="submit" value="Submit">
+    <input type="submit" value="Add Url to List">
 </form>
-<!-- End of the form -->
+<form action="${pageContext.request.contextPath}/rss-feed-reader">
+    <input type="submit" value="Get RSS Feeds">
+</form>
+<!-- End of the forms -->
 </body>
 </html>
