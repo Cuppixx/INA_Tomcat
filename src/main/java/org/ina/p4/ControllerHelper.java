@@ -6,6 +6,10 @@ import com.rometools.rome.io.SyndFeedInput;
 import com.rometools.rome.io.XmlReader;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.hibernate.SessionFactory;
+import org.hibernate.boot.MetadataSources;
+import org.hibernate.boot.registry.StandardServiceRegistry;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.ina.p4.beans.FeedBean;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -18,6 +22,18 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
+
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Root;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.boot.MetadataSources;
+import org.hibernate.boot.registry.StandardServiceRegistry;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.query.Query;
+
 /**
  * The {@code ControllerHelper} class manages data flow between the {@code InputBean} model
  * and the servlet that processes user requests. It encapsulates logic for building and
@@ -27,6 +43,7 @@ public class ControllerHelper extends HelperBase implements Serializable {
 
     protected FeedBean data;
     private final List<String> feedUrls = new ArrayList<>();
+    private static SessionFactory sessionFactory;
 
     /**
      * Constructs a new {@code ControllerHelper} instance by initializing the base class with
@@ -116,4 +133,39 @@ public class ControllerHelper extends HelperBase implements Serializable {
         } catch (IOException | FeedException | URISyntaxException e) {e.printStackTrace();}
         return null;
     }
+
+
+
+
+    private SessionFactory createSessionFactory() {
+        final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
+        try {
+            sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
+        } catch (Exception e) {
+            e.printStackTrace();
+            StandardServiceRegistryBuilder.destroy(registry);
+        }
+        return sessionFactory;
+    }
+
+    private SessionFactory getSessionFactory() {return createSessionFactory();}
+
+    private void closeSessionFactory() {
+        if (sessionFactory != null)
+            sessionFactory.close();
+    }
+
+    protected void saveOrUpdate(FeedBean bean) {
+        Session hib_session = getSessionFactory().getCurrentSession();
+        hib_session.beginTransaction();
+
+        hib_session.persist(bean);
+
+        hib_session.getTransaction().commit();
+        hib_session.close();
+        closeSessionFactory();
+    }
+
+
+
 }

@@ -1,6 +1,8 @@
 package org.ina.p4;
 
 import jakarta.servlet.annotation.WebServlet;
+import org.ina.p4.beans.FeedBean;
+
 import java.io.IOException;
 
 /**
@@ -19,6 +21,7 @@ public class UrlValidatorAdd extends UrlValidatorBase {
     @Override
     protected void doAction(String feedUrl) throws IOException {
         ch.addToData(feedUrl);
+        ch.saveOrUpdate((FeedBean)request.getSession().getAttribute("data"));
         response.sendRedirect("org/ina/p4/urlInputAdvanced.jsp?errorMessage=Url+added");
     }
 }
